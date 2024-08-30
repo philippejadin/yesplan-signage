@@ -37,7 +37,7 @@ $events = getEvents('event:date:#today');
 
 
 // debug the returned data
- print_r($events);
+print_r($events);
 
 
 foreach ($events as $event) {
@@ -45,6 +45,15 @@ foreach ($events as $event) {
     if (isset($event['locations'][0]['name'])) {
         echo ' | ' .  $event['locations'][0]['name'];
     }
-    echo ' | '  . $event['starttime'];
+
+    $starttime = new DateTimeImmutable($event['starttime']);
+    $endtime = new DateTimeImmutable($event['endtime']);
+
+
+    echo ' | '  . $starttime->format('G:i');
+    if ($starttime->format('G:i') <> $endtime->format('G:i')) {
+        echo ' -> '  . $endtime->format('G:i');
+    }
+
     echo PHP_EOL;
 }
