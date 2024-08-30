@@ -8,30 +8,43 @@ use GuzzleHttp\Client;
 
 
 
+/** 
+ * Returns all the events using the yesplan $query language https://manual.yesplan.be/en/use/query-language/search-queries/#range
+ */
+function getEvents($query)
+{
+    global $base_uri;
+    global $api_key;
+
+    $client = new Client([
+        'base_uri' => $base_uri,
+    ]);
+
+    $params = [
+        'query' => [
+            'api_key' => $api_key,
+        ]
+    ];
+
+    $response = $client->get('events/' . urlencode($query), $params);
+    $data = json_decode($response->getBody(), true);
+    return $data['data'];
+}
+
+// get all events for today using event:date:#today or event:date:#thisweek
+//$events = getEvents('event:date:#thisweek');
+$events = getEvents('event:date:#today');
 
 
-$client = new Client([
-    'base_uri' => $base_uri,
-]);
+// debug the returned data
+ print_r($events);
 
-
-$params = [
-    'query' => [
-        'api_key' => $api_key
-    ]
-];
-
-$response = $client->get('events', $params);
-
-$data = json_decode($response->getBody(), true);
-
-$events = $data['data'];
-
-
-print_r($events);
-
-//print_r(json_decode($response->getBody()));
 
 foreach ($events as $event) {
-    echo $event['name']  . PHP_EOL;
+    echo $event['name'];
+    if (isset($event['locations'][0]['name'])) {
+        echo ' | ' .  $event['locations'][0]['name'];
+    }
+    echo ' | '  . $event['starttime'];
+    echo PHP_EOL;
 }
