@@ -53,11 +53,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.js" integrity="sha512-35L3EFHQcGaTZ6QN9wAg9iK1hTPVCn8RGsscuXjm5JdmDRyOw+/IWJ4wavGkozQ8VDoddD7nV1psHgu/BYNpxQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         Reveal.initialize({
-            history: true,
-            transition: 'linear',
             autoSlide: 5000,
             loop: true,
-
+            autoSlideStoppable: false
         });
     </script>
 
