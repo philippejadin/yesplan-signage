@@ -1,8 +1,8 @@
 <?php
 
 
-require_once('vendor/autoload.php');
-require_once('config.php');
+require_once('../vendor/autoload.php');
+require_once('../config.php');
 
 use GuzzleHttp\Client;
 
@@ -37,9 +37,9 @@ $events = getEvents('event:date:#today');
 
 
 // debug the returned data
-print_r($events);
+//print_r($events);
 
-
+/*
 foreach ($events as $event) {
     echo $event['name'];
     if (isset($event['locations'][0]['name'])) {
@@ -57,3 +57,6 @@ foreach ($events as $event) {
 
     echo PHP_EOL;
 }
+    */
+
+include 'template.php';
