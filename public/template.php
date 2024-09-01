@@ -1,5 +1,13 @@
 <!doctype html>
 <html lang="en">
+<!--
+Debug output : 
+
+<?php //echo print_r($events); 
+?>
+
+-->
+
 
 <head>
     <meta charset="utf-8">
@@ -10,6 +18,18 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.css" integrity="sha512-0AUO8B5ll9y1ERV/55xq3HeccBGnvAJQsVGitNac/iQCLyDTGLUBMPqlupIWp/rJg0hV3WWHusXchEIdqFAv1Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/theme/black.min.css" integrity="sha512-B1sAcZ4KSpvbIUUvxaoqy56z88d6fozQyEV54K0gVBUMDMcVu9CAXMwJ5wTWo650j3IQH6yDEETiek6lrk/zCw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        .stroke {
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: black;
+            text-shadow: -2px 2px 0 #000,
+                2px 2px 0 #000,
+                2px -2px 0 #000,
+                -2px -2px 0 #000;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -19,7 +39,11 @@
         <div class="slides">
 
             <?php foreach ($events as $event): ?>
-                <section>
+                <section <?php if (isset($event['photo'])) : ?>
+                    data-background-image="<?php echo $event['photo'] ?>"
+                    <?php endif; ?>>
+
+                    <!-- <h1 class="r-fit-text" style="background-color: red;">-->
                     <h1 class="r-fit-text">
                         <?php echo $event['name'] ?>
                     </h1>
@@ -37,13 +61,18 @@
                     $endtime = new DateTimeImmutable($event['endtime']);
                     ?>
 
-
+                    <div>
+                        <?php echo $starttime->format('d/m'); ?>
+                    </div>
                     <?php echo $starttime->format('G:i'); ?>
                     <?php if ($starttime->format('G:i') <> $endtime->format('G:i')) : ?>
                         &rarr; <?php echo $endtime->format('G:i'); ?>
                     <?php endif; ?>
-
-
+                    <!--
+                    <?php if (isset($event['groups'][13]['children'][0]['value']['dataurl'])) : ?>
+                        <img src="<?php echo $event['groups'][13]['children'][0]['value']['dataurl'] ?>">
+                    <?php endif; ?>
+                    -->
                 </section>
             <?php endforeach; ?>
         </div>

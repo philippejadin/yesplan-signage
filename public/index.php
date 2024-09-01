@@ -1,10 +1,6 @@
 <?php
 
-
-require_once('../vendor/autoload.php');
 require_once('../config.php');
-
-use GuzzleHttp\Client;
 
 
 
@@ -16,28 +12,46 @@ function getEvents($query)
     global $base_uri;
     global $api_key;
 
-    $client = new Client([
-        'base_uri' => $base_uri,
-    ]);
+    $response = file_get_contents(
+        $base_uri . 'events/' .
+            urlencode($query) . '?api_key=' . $api_key
+    );
+    $data = json_decode($response, true);
 
-    $params = [
-        'query' => [
-            'api_key' => $api_key,
-        ]
-    ];
 
-    $response = $client->get('events/' . urlencode($query), $params);
-    $data = json_decode($response->getBody(), true);
-    return $data['data'];
+    $events = $data['data'];
+
+    foreach ($events as $event) {
+        // load custom data
+        $response = file_get_contents(
+            $base_uri . 'event/' . $event['id'] . '/customdata'
+                . '?api_key=' . $api_key
+        );
+        $data = json_decode($response, true);
+
+        // if we have a photo in customdata
+        if (isset($data['groups'][13]['children'][0]['value']['dataurl'])) {
+            $event['photo'] = $data['groups'][13]['children'][0]['value']['dataurl'];
+        }
+
+        //and merge with the event
+        $merged_events[] = array_merge_recursive($event, $data);
+    }
+
+    return $merged_events;
+    //return $data['data'];
 }
 
-// get all events for today using event:date:#today or event:date:#thisweek
-//$events = getEvents('event:date:#thisweek');
-$events = getEvents('event:date:#today');
+// get all events from today until a week after
+$date_from = new DateTime();
+$date_to = new DateTime();
+$date_to->add(new DateInterval('P1W'));
+$query = 'event:date:' . $date_from->format('d-m-Y') . ' TO ' . $date_to->format('d-m-Y');
+$events = getEvents($query);
 
 
 // debug the returned data
-//print_r($events);
+// print_r($events);
 
 /*
 foreach ($events as $event) {
