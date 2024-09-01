@@ -28,6 +28,18 @@ Debug output :
                 2px -2px 0 #000,
                 -2px -2px 0 #000;
         }
+
+        .black {
+            /*
+            background-color: black;
+            color: #fff;
+            display: inline;
+            padding: 0.5rem;
+
+            -webkit-box-decoration-break: clone;
+            box-decoration-break: clone;
+            */
+        }
     </style>
 
 </head>
@@ -41,15 +53,16 @@ Debug output :
             <?php foreach ($events as $event): ?>
                 <section <?php if (isset($event['photo'])) : ?>
                     data-background-image="<?php echo $event['photo'] ?>"
+                    data-background-opacity="0.3"
                     <?php endif; ?>>
 
                     <!-- <h1 class="r-fit-text" style="background-color: red;">-->
-                    <h1 class="r-fit-text">
+                    <h1 class="r-fit-text black">
                         <?php echo $event['name'] ?>
                     </h1>
 
                     <?php if (isset($event['locations'][0]['name'])) : ?>
-                        <div>
+                        <div class="black">
                             <strong>
                                 <?php echo $event['locations'][0]['name']; ?>
                             </strong>
@@ -61,18 +74,15 @@ Debug output :
                     $endtime = new DateTimeImmutable($event['endtime']);
                     ?>
 
-                    <div>
+                    <div class="black">
                         <?php echo $starttime->format('d/m'); ?>
                     </div>
-                    <?php echo $starttime->format('G:i'); ?>
-                    <?php if ($starttime->format('G:i') <> $endtime->format('G:i')) : ?>
-                        &rarr; <?php echo $endtime->format('G:i'); ?>
-                    <?php endif; ?>
-                    <!--
-                    <?php if (isset($event['groups'][13]['children'][0]['value']['dataurl'])) : ?>
-                        <img src="<?php echo $event['groups'][13]['children'][0]['value']['dataurl'] ?>">
-                    <?php endif; ?>
-                    -->
+                    <div class="black">
+                        <?php echo $starttime->format('G:i'); ?>
+                        <?php if ($starttime->format('G:i') <> $endtime->format('G:i')) : ?>
+                            &rarr; <?php echo $endtime->format('G:i'); ?>
+                        <?php endif; ?>
+                    </div>
                 </section>
             <?php endforeach; ?>
         </div>
