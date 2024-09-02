@@ -27,18 +27,18 @@ function getEvents($query)
             $base_uri . 'event/' . $event['id'] . '/customdata'
                 . '?api_key=' . $api_key
         );
-        $data = json_decode($response, true);
+        $customdata = json_decode($response, true);
 
         // if we have a photo in customdata
-        if (isset($data['groups'][13]['children'][0]['value']['dataurl'])) {
-            $event['photo'] = $data['groups'][13]['children'][0]['value']['dataurl'];
+        if (isset($customdata['groups'][13]['children'][0]['value']['dataurl'])) {
+            $event['photo'] = $customdata['groups'][13]['children'][0]['value']['dataurl'];
         }
 
         $event['start']  = new DateTimeImmutable($event['starttime']);
         $event['end'] = new DateTimeImmutable($event['endtime']);
 
         //and merge with the event
-        $merged_events[] = array_merge_recursive($event, $data);
+        $merged_events[] = array_merge_recursive($event, $customdata);
     }
 
     return $merged_events;
@@ -48,7 +48,7 @@ function getEvents($query)
 // get all events from today until a week after
 $date_from = new DateTime();
 $date_to = new DateTime();
-$date_to->add(new DateInterval('P1W'));
+$date_to->add(new DateInterval('P2W'));
 $query = 'event:date:' . $date_from->format('d-m-Y') . ' TO ' . $date_to->format('d-m-Y');
 $events = getEvents($query);
 

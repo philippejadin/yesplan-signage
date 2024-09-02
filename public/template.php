@@ -27,76 +27,16 @@ Debug output :
         /* 
         https://blog.corsego.com/css-readability-tricks
         https://css-tricks.com/design-considerations-text-images/
+        https://www.joomlashack.com/blog/tutorials/center-and-align-items-in-css-grid/
         */
-
-        /*
-        .stroke {
-            -webkit-text-stroke-width: 1px;
-            -webkit-text-stroke-color: black;
-            text-shadow: -2px 2px 0 #000,
-                2px 2px 0 #000,
-                2px -2px 0 #000,
-                -2px -2px 0 #000;
-        }
-
-        .title {
-            background-color: white;
-            color: black;
-            padding: 1rem 0.1rem;
-            padding-top: 10px;
-            padding-right: 50px;
-            padding-bottom: 50px;
-            padding-left: 10px;
-        }
-
-
-        .meta {
-            display: inline-block;
-            background-color: white;
-            color: black;
-            padding: 10px;
-            margin: 10px;
-            text-align: left;
-        }
-        */
-
 
         .container {
             display: grid;
             grid-auto-flow: column;
             grid-auto-columns: 1fr;
-        }
-
-
-        /**
-        .section {
-            display: flex;
-            flex-direction: row;
-        }
-
-        .info {
-            width: 70%;
-            height: 100vh;
-            background-color: green;
-            text-align: center;
-            color: white;
-        }
-
-        .photo {
-            width: 30%;
-            padding: 30px;
-            height: 100vh;
-            border: green solid 5px;
-            margin: 50px;
-        }
-
-        .photo {
-            max-width: 100%;
-        }*/
-
-        .photo {
-            max-width: 100%;
-            border-radius: 1rem;
+            align-items: center;
+            justify-items: center;
+            grid-gap: 2rem;
         }
     </style>
 
@@ -113,8 +53,6 @@ Debug output :
 
 
                     <div class="container">
-
-
 
                         <div class="col">
                             <h2>
@@ -173,7 +111,10 @@ Debug output :
     <script>
         Reveal.initialize({
             autoSlide: 10000,
-            loop: true
+            loop: true,
+            progress: true,
+            history: true,
+            transition: 'concave'
             //autoSlideStoppable: false
         });
     </script>
