@@ -38,6 +38,11 @@ Debug output :
             justify-items: center;
             grid-gap: 2rem;
         }
+
+        .photo {
+            max-width: 100%;
+            border-radius: 1rem;
+        }
     </style>
 
 </head>
