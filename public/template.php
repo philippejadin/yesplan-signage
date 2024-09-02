@@ -24,6 +24,11 @@ Debug output :
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
+        /* 
+        https://blog.corsego.com/css-readability-tricks
+        https://css-tricks.com/design-considerations-text-images/
+        */
+
         /*
         .stroke {
             -webkit-text-stroke-width: 1px;
@@ -91,7 +96,7 @@ Debug output :
 
         .photo {
             max-width: 100%;
-            border-radius : 1rem;
+            border-radius: 1rem;
         }
     </style>
 
