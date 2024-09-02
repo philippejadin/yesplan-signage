@@ -34,6 +34,9 @@ function getEvents($query)
             $event['photo'] = $data['groups'][13]['children'][0]['value']['dataurl'];
         }
 
+        $event['start']  = new DateTimeImmutable($event['starttime']);
+        $event['end'] = new DateTimeImmutable($event['endtime']);
+
         //and merge with the event
         $merged_events[] = array_merge_recursive($event, $data);
     }
