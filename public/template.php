@@ -3,7 +3,7 @@
 <!--
 Debug output : 
 
-<?php //echo print_r($events); 
+<?php // echo print_r($events);
 ?>
 
 -->
@@ -54,57 +54,55 @@ Debug output :
         <div class="slides">
 
             <?php foreach ($events as $event): ?>
-                <section>
+
+                <?php if ($event['show']): ?>
+                    <section>
 
 
-                    <div class="container">
+                        <div class="container">
 
-                        <div class="col">
-                            <h2>
-                                <?php echo $event['name'] ?>
-                            </h2>
+                            <div class="col">
+                                <h2>
+                                    <?php echo $event['name'] ?>
+                                </h2>
 
-                            <?php if (isset($event['locations'][0]['name'])): ?>
+                                <?php if (isset($event['locations'][0]['name'])): ?>
+                                    <div>
+                                        <strong>
+                                            <?php echo $event['locations'][0]['name']; ?>
+                                        </strong>
+                                    </div>
+                                <?php endif; ?>
+                               
+
                                 <div>
-                                    <strong>
-                                        <?php echo $event['locations'][0]['name']; ?>
-                                    </strong>
+                                    <?php echo $event['start']->format('d/m'); ?>
+                                </div>
+
+                                <div>
+                                    <?php echo $event['start']->format('G:i'); ?>
+                                    <?php if ($event['start']->format('G:i') <> $event['end']->format('G:i')): ?>
+                                        &rarr; <?php echo $event['end']->format('G:i'); ?>
+                                    <?php endif; ?>
+                                </div>
+
+                            </div>
+
+
+
+
+                            <?php if (isset($event['photo'])): ?>
+                                <div class="col">
+                                    <img class="photo" src="<?php echo $event['photo'] ?>" />
                                 </div>
                             <?php endif; ?>
 
-                            <?php
-                            $starttime = new DateTimeImmutable($event['starttime']);
-                            $endtime = new DateTimeImmutable($event['endtime']);
-                            ?>
-
-                            <div>
-                                <?php echo $starttime->format('d/m'); ?>
-                            </div>
 
 
-                            <div>
-                                <?php echo $starttime->format('G:i'); ?>
-                                <?php if ($starttime->format('G:i') <> $endtime->format('G:i')): ?>
-                                    &rarr; <?php echo $endtime->format('G:i'); ?>
-                                <?php endif; ?>
-                            </div>
 
                         </div>
-
-
-
-
-                        <?php if (isset($event['photo'])): ?>
-                            <div class="col">
-                                <img class="photo" src="<?php echo $event['photo'] ?>" />
-                            </div>
-                        <?php endif; ?>
-
-
-
-
-                    </div>
-                </section>
+                    </section>
+                <?php endif; ?>
             <?php endforeach; ?>
         </div>
     </div>
@@ -119,7 +117,7 @@ Debug output :
             loop: true,
             progress: true,
             history: true,
-            transition: 'concave'
+            //transition: 'concave'
             //autoSlideStoppable: false
         });
     </script>

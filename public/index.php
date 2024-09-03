@@ -14,7 +14,7 @@ function getEvents($query)
 
     $response = file_get_contents(
         $base_uri . 'events/' .
-            urlencode($query) . '?api_key=' . $api_key
+        urlencode($query) . '?api_key=' . $api_key
     );
     $data = json_decode($response, true);
 
@@ -25,17 +25,24 @@ function getEvents($query)
         // load custom data
         $response = file_get_contents(
             $base_uri . 'event/' . $event['id'] . '/customdata'
-                . '?api_key=' . $api_key
+            . '?api_key=' . $api_key
         );
         $customdata = json_decode($response, true);
 
         // if we have a photo in customdata
-        if (isset($customdata['groups'][13]['children'][0]['value']['dataurl'])) {
-            $event['photo'] = $customdata['groups'][13]['children'][0]['value']['dataurl'];
+        if (isset($customdata['groups'][0]['children'][0]['children'][8]['value']['dataurl'])) {
+            $event['photo'] = $customdata['groups'][0]['children'][0]['children'][8]['value']['dataurl'];
         }
 
-        $event['start']  = new DateTimeImmutable($event['starttime']);
+        $event['start'] = new DateTimeImmutable($event['starttime']);
         $event['end'] = new DateTimeImmutable($event['endtime']);
+
+        if (isset($customdata['groups'][0]['children'][0]['children'][9]['value'][0])) {
+            $event['show'] = true;
+        } else {
+            $event['show'] = false;
+        }
+
 
         //and merge with the event
         $merged_events[] = array_merge_recursive($event, $customdata);
