@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en">
 <!--
-Debug output : 
+Debug output :
 
-<?php // echo print_r($events);
+<?php echo print_r($events);
 ?>
 
 -->
@@ -24,7 +24,7 @@ Debug output :
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
-        /* 
+        /*
         https://blog.corsego.com/css-readability-tricks
         https://css-tricks.com/design-considerations-text-images/
         https://www.joomlashack.com/blog/tutorials/center-and-align-items-in-css-grid/
@@ -43,6 +43,12 @@ Debug output :
             max-width: 100%;
             border-radius: 1rem;
         }
+
+        .info
+        {
+            text-align: left;
+        }
+
     </style>
 
 </head>
@@ -61,7 +67,7 @@ Debug output :
 
                         <div class="container">
 
-                            <div class="col">
+                            <div class="info">
                                 <h2>
                                     <?php echo $event['name'] ?>
                                 </h2>
@@ -72,18 +78,26 @@ Debug output :
                                             <?php echo $event['locations'][0]['name']; ?>
                                         </strong>
                                     </div>
-                                <?php endif; ?>
-                               
+                                <?php endif;?>
 
                                 <div>
-                                    <?php echo $event['start']->format('d/m'); ?>
+                                <?php echo $event['profile']['name']; ?>
+                                </div>
+
+
+                                <div>
+                                    <?php
+                                    echo $event['start']->format('d/m');
+                                    //echo $event['start']->format('l j F');
+                                    ?>
+
                                 </div>
 
                                 <div>
                                     <?php echo $event['start']->format('G:i'); ?>
-                                    <?php if ($event['start']->format('G:i') <> $event['end']->format('G:i')): ?>
+                                    <?php if ($event['start']->format('G:i') != $event['end']->format('G:i')): ?>
                                         &rarr; <?php echo $event['end']->format('G:i'); ?>
-                                    <?php endif; ?>
+                                    <?php endif;?>
                                 </div>
 
                             </div>
@@ -92,18 +106,18 @@ Debug output :
 
 
                             <?php if (isset($event['photo'])): ?>
-                                <div class="col">
+                                <div>
                                     <img class="photo" src="<?php echo $event['photo'] ?>" />
                                 </div>
-                            <?php endif; ?>
+                            <?php endif;?>
 
 
 
 
                         </div>
                     </section>
-                <?php endif; ?>
-            <?php endforeach; ?>
+                <?php endif;?>
+            <?php endforeach;?>
         </div>
     </div>
 
