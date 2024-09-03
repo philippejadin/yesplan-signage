@@ -34,9 +34,11 @@ function getEvents($query)
             $event['photo'] = $customdata['groups'][0]['children'][0]['children'][8]['value']['dataurl'];
         }
 
+        // add proper date object to event
         $event['start'] = new DateTimeImmutable($event['starttime']);
         $event['end'] = new DateTimeImmutable($event['endtime']);
 
+        // boolean to tell template if event is public or not
         if (isset($customdata['groups'][0]['children'][0]['children'][9]['value'][0])) {
             $event['show'] = true;
         } else {
