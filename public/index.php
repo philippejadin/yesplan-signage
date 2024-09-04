@@ -12,7 +12,7 @@ function getEvents($query)
 
     $response = file_get_contents(
         $base_uri . 'events/' .
-        urlencode($query) . '?api_key=' . $api_key
+            urlencode($query) . '?api_key=' . $api_key
     );
     $data = json_decode($response, true);
 
@@ -22,7 +22,7 @@ function getEvents($query)
         // load custom data
         $response = file_get_contents(
             $base_uri . 'event/' . $event['id'] . '/customdata'
-            . '?api_key=' . $api_key
+                . '?api_key=' . $api_key
         );
         $customdata = json_decode($response, true);
 
