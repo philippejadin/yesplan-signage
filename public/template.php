@@ -78,7 +78,7 @@ Debug output :
     -->
                     <tbody>
                         <?php foreach ($events as $event) : ?>
-                            <?php if ($event['show']) : ?>
+                            <?php if ($event['today']) : ?>
                                 <tr>
                                     <td>
                                         <?php echo $event['name'] ?>

@@ -42,9 +42,18 @@ function getEvents($query)
             $event['show'] = false;
         }
 
+        $now = new DateTime();
+        if ($event['start']->format('d/m') == $now->format('d/m')) {
+            $event['today'] = true;
+        } else {
+            $event['today'] = false;
+        }
+
         //and merge with the event
         $merged_events[] = array_merge_recursive($event, $customdata);
     }
+
+
 
     return $merged_events;
     //return $data['data'];
