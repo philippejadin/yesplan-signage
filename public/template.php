@@ -88,8 +88,11 @@ Debug output :
                                             <?php echo $event['locations'][0]['name']; ?>
                                         <?php endif; ?>
                                     </td>
-                                    <td style="width:20%">
+                                    <td style="width:30%">
                                         <?php echo $event['start']->format('G:i'); ?>
+                                        <?php if ($event['start']->format('G:i') != $event['end']->format('G:i')) : ?>
+                                            &rarr; <?php echo $event['end']->format('G:i'); ?>
+                                        <?php endif; ?>
                                     </td>
                                 </tr>
                             <?php endif; ?>
