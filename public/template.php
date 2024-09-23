@@ -3,13 +3,14 @@
 <!--
 Debug output :
 
-<?php echo print_r($events);
+<?php // echo print_r($events);
 ?>
 
 -->
 
 
 <head>
+    <meta http-equiv="refresh" content="3600">
     <meta charset="utf-8">
 
     <title></title>
