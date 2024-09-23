@@ -3,7 +3,7 @@
 <!--
 Debug output :
 
-<?php // echo print_r($events);
+<?php echo print_r($events);
 ?>
 
 -->
@@ -90,10 +90,15 @@ Debug output :
                                         <?php endif; ?>
                                     </td>
                                     <td style="width:30%">
-                                        <?php echo $event['start']->format('G:i'); ?>
-                                        <?php if ($event['start']->format('G:i') != $event['end']->format('G:i')) : ?>
-                                            &rarr; <?php echo $event['end']->format('G:i'); ?>
+                                        <?php if ($event['start']->format('G') <> 6) : ?>
+                                            <?php echo $event['start']->format('G:i'); ?>
                                         <?php endif; ?>
+                                        <?php if ($event['start']->format('G:i') != $event['end']->format('G:i')) : ?>
+                                            <?php if ($event['end']->format('G') <> 6) : ?>
+                                                &rarr; <?php echo $event['end']->format('G:i'); ?>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+
                                     </td>
                                 </tr>
                             <?php endif; ?>
@@ -138,9 +143,13 @@ Debug output :
                                 </div>
 
                                 <div>
-                                    <?php echo $event['start']->format('G:i'); ?>
+                                    <?php if ($event['start']->format('G') <> 6) : ?>
+                                        <?php echo $event['start']->format('G:i'); ?>
+                                    <?php endif; ?>
                                     <?php if ($event['start']->format('G:i') != $event['end']->format('G:i')) : ?>
-                                        &rarr; <?php echo $event['end']->format('G:i'); ?>
+                                        <?php if ($event['end']->format('G') <> 6) : ?>
+                                            &rarr; <?php echo $event['end']->format('G:i'); ?>
+                                        <?php endif; ?>
                                     <?php endif; ?>
                                 </div>
 

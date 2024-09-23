@@ -2,6 +2,21 @@
 
 require_once '../config.php';
 
+/*
+$test = new DateTimeImmutable("2024-09-28T06:00:00+02:00");
+
+if ($test->format('G') <> 6)
+{
+    echo 'ok';
+}
+else
+{
+    echo 'pas afficher';
+}
+
+die();
+*/
+
 /**
  * Returns all the events using the yesplan $query language https://manual.yesplan.be/en/use/query-language/search-queries/#range
  */
@@ -34,6 +49,14 @@ function getEvents($query)
         // add proper date object to event
         $event['start'] = new DateTimeImmutable($event['starttime']);
         $event['end'] = new DateTimeImmutable($event['endtime']);
+
+        /*
+        // decide if we show end or start of event (don't show if we get a start hour of 6:00)
+        $event['show_start'] == true;
+        $event['show_end'] == true;
+        if ($event['start']->format('G') == 6) $event['show_start'] == false;
+        if ($event['end']->format('G') == 6) $event['show_end'] == false;
+        */
 
         // boolean to tell template if event is public or not
         if (isset($customdata['groups'][0]['children'][0]['children'][9]['value'][0])) {
