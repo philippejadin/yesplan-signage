@@ -79,7 +79,7 @@ Debug output :
     -->
                     <tbody>
                         <?php foreach ($events as $event) : ?>
-                            <?php if ($event['today']) : ?>
+                            <?php if ($event['today'] && $event['show']) : ?>
                                 <tr>
                                     <td>
                                         <?php echo $event['name'] ?>
